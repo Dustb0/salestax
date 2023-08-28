@@ -45,9 +45,9 @@ describe("ShoppingCart Service", () => {
     const service = new ShoppingCartService();
     service.addProduct(mockProduct, 2);
   
-    const total = service.calculateCartTotal();
-    expect(total.total).toBe(mockProduct.basePrice * 2);
-    expect(total.salesTaxTotal).toBe(0);
+    service.calculateCartTotalAndTaxes();
+    expect(service.getCart().total).toBe(mockProduct.basePrice * 2);
+    expect(service.getCart().salesTaxTotal).toBe(0);
   });
 
   test("should correctly calculate total with taxed product", () => {
@@ -62,9 +62,9 @@ describe("ShoppingCart Service", () => {
     const service = new ShoppingCartService();
     service.addProduct(taxedProduct, 1);
   
-    const total = service.calculateCartTotal();
-    expect(total.total).toBe(taxedProduct.basePrice + total.salesTaxTotal);
-    expect(total.salesTaxTotal).toBe(taxedProduct.basePrice * service.getSalesTax());
+    service.calculateCartTotalAndTaxes();
+    expect(service.getCart().total).toBe(taxedProduct.basePrice + service.getCart().salesTaxTotal);
+    expect(service.getCart().salesTaxTotal).toBe(taxedProduct.basePrice * service.getSalesTax());
   });
 
   test("should correctly calculate total with imported product", () => {
@@ -80,9 +80,9 @@ describe("ShoppingCart Service", () => {
     const service = new ShoppingCartService();
     service.addProduct(importedProduct, 1);
   
-    const total = service.calculateCartTotal();
-    expect(total.total).toBe(importedProduct.basePrice + total.salesTaxTotal);
-    expect(total.salesTaxTotal).toBe(importedProduct.basePrice * service.getImportTax());
+    service.calculateCartTotalAndTaxes();
+    expect(service.getCart().total).toBe(importedProduct.basePrice + service.getCart().salesTaxTotal);
+    expect(service.getCart().salesTaxTotal).toBe(importedProduct.basePrice * service.getImportTax());
   });
 
 });

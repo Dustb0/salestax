@@ -7,9 +7,11 @@ export class CartEntry {
 
   product: Product;
   amount: number;
+  salesTax: number;
 
   constructor(product: Product, amount: number) {
     this.product = product;
     this.amount = amount;
+    this.salesTax = 0;
   }
 }

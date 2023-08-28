@@ -7,4 +7,8 @@ export class Cart {
    */
   entries: CartEntry[] = [];
 
+  salesTaxTotal: number = 0;
+  
+  total: number = 0;
+
 }

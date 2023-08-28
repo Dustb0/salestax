@@ -1,6 +1,5 @@
 import { Cart } from "./models/Cart.js";
 import { CartEntry } from "./models/CartEntry.js";
-import { CartTotal } from "./models/CartTotal.js";
 import { Product } from "./models/Product.js";
 
 export class ShoppingCartService {
@@ -40,25 +39,24 @@ export class ShoppingCartService {
     return 0.05;
   }
 
-  calculateCartTotal(): CartTotal {
-    const total = new CartTotal();
+  /**
+   * Calculates the taxes of each product entry and the overall total in the cart
+   */
+  calculateCartTotalAndTaxes() {
 
     this.cart.entries.forEach((entry) => {
       const basePriceTotal = entry.product.basePrice * entry.amount;
-      let salesTax = 0;
 
       if (entry.product.category.salesTaxApplicable) {
-        salesTax += basePriceTotal * this.getSalesTax();
+        entry.salesTax += basePriceTotal * this.getSalesTax();
       }
 
       if (entry.product.isImported) {
-        salesTax += basePriceTotal * this.getImportTax();
+        entry.salesTax += basePriceTotal * this.getImportTax();
       }
 
-      total.salesTaxTotal += salesTax;
-      total.total += basePriceTotal + salesTax;
+      this.cart.salesTaxTotal += entry.salesTax;
+      this.cart.total += basePriceTotal + entry.salesTax;
     });
-
-    return total;
   }
 }
