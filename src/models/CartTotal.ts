@@ -1,6 +1,6 @@
 export class CartTotal {
 
-  salesTaxTotal: number;
-  total: number;
+  salesTaxTotal: number = 0;
+  total: number = 0;
 
 }
