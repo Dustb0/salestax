@@ -2,12 +2,9 @@ import { ShoppingCartService } from "./ShoppingCart.service.js";
 import { Product } from "./models/Product.js";
 import { ProductCategory } from "./models/ProductCategory.js";
 
+// General mock data
 const mockCategory = new ProductCategory("Books", false);
-
-const mockProduct = new Product();
-mockProduct.label = "Book";
-mockProduct.basePrice = 12.49;
-mockProduct.category = mockCategory;
+const mockProduct = new Product("Book", 12.49, false, mockCategory);
 
 describe("ShoppingCart Service", () => {
 
@@ -50,14 +47,22 @@ describe("ShoppingCart Service", () => {
     expect(service.getCart().salesTaxTotal).toBe(0);
   });
 
+  test("should clear cart", () => {
+  
+    const service = new ShoppingCartService();
+    service.addProduct(mockProduct, 2);
+    service.calculateCartTotalAndTaxes();
+
+    service.clearCart();
+    expect(service.getCart().entries.length).toBe(0);
+    expect(service.getCart().total).toBe(0);
+    expect(service.getCart().salesTaxTotal).toBe(0);
+  });
+
   test("should correctly calculate total with taxed product", () => {
   
     const taxedCategory = new ProductCategory("Entertaiment", true);
-
-    const taxedProduct = new Product();
-    taxedProduct.label = "Music CD";
-    taxedProduct.basePrice = 14.99;
-    taxedProduct.category = taxedCategory;
+    const taxedProduct = new Product("Music CD", 14.99, false, taxedCategory);
 
     const service = new ShoppingCartService();
     service.addProduct(taxedProduct, 1);
@@ -70,12 +75,7 @@ describe("ShoppingCart Service", () => {
   test("should correctly calculate total with imported product", () => {
   
     const category = new ProductCategory("Food", false);
-
-    const importedProduct = new Product();
-    importedProduct.label = "Chocolates";
-    importedProduct.basePrice = 10.50;
-    importedProduct.category = category;
-    importedProduct.isImported = true;
+    const importedProduct = new Product("Chocolates", 10.50, true, category);
 
     const service = new ShoppingCartService();
     service.addProduct(importedProduct, 1);

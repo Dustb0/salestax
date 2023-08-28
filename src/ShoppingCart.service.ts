@@ -39,6 +39,12 @@ export class ShoppingCartService {
     return 0.05;
   }
 
+  clearCart() {
+    this.cart.entries = [];
+    this.cart.salesTaxTotal = 0;
+    this.cart.total = 0;
+  }
+
   /**
    * Calculates the taxes of each product entry and the overall total in the cart
    */
@@ -56,7 +62,8 @@ export class ShoppingCartService {
       }
 
       this.cart.salesTaxTotal += entry.salesTax;
-      this.cart.total += basePriceTotal + entry.salesTax;
+      entry.total = basePriceTotal + entry.salesTax;
+      this.cart.total += entry.total;
     });
   }
 }
