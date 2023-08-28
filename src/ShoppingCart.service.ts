@@ -61,6 +61,9 @@ export class ShoppingCartService {
         entry.salesTax += basePriceTotal * this.getImportTax();
       }
 
+      // Round sales taxes up to nearest .05-step
+      entry.salesTax = Math.ceil(entry.salesTax / 0.05) * 0.05
+
       this.cart.salesTaxTotal += entry.salesTax;
       entry.total = basePriceTotal + entry.salesTax;
       this.cart.total += entry.total;

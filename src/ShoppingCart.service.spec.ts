@@ -69,7 +69,7 @@ describe("ShoppingCart Service", () => {
   
     service.calculateCartTotalAndTaxes();
     expect(service.getCart().total).toBe(taxedProduct.basePrice + service.getCart().salesTaxTotal);
-    expect(service.getCart().salesTaxTotal).toBe(taxedProduct.basePrice * service.getSalesTax());
+    expect(service.getCart().salesTaxTotal).toBe(1.5);
   });
 
   test("should correctly calculate total with imported product", () => {
@@ -82,7 +82,7 @@ describe("ShoppingCart Service", () => {
   
     service.calculateCartTotalAndTaxes();
     expect(service.getCart().total).toBe(importedProduct.basePrice + service.getCart().salesTaxTotal);
-    expect(service.getCart().salesTaxTotal).toBe(importedProduct.basePrice * service.getImportTax());
+    expect(service.getCart().salesTaxTotal).toBe(0.55);
   });
 
 });
