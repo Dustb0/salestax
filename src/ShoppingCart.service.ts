@@ -10,6 +10,10 @@ export class ShoppingCartService {
     this.cart = new Cart();
   }
 
+  getCart(): Cart {
+    return this.cart;
+  }
+
   addProduct(product: Product, amount: number) {
     if (amount < 1) {
       throw Error("Amount has to be greater 0");
