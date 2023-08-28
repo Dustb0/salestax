@@ -1,4 +1,17 @@
-# salestax
+# Sales Taxes
+Basic sales tax is applicable at a rate of 10% on all goods, except books, food, and medical
+products that are exempt. Import duty is an additional sales tax
+applicable on all imported goods at a rate of 5%, with no exemptions. When I purchase items
+I receive a receipt which lists the name of all the items and their price (including tax),
+finishing with the total cost of the items,
+and the total amounts of sales taxes paid. The rounding rules for sales tax are that for a tax
+rate of n%, a shelf price of p contains (np/100 rounded up to the nearest 0.05) amount of
+sales tax.
 
-1. npm install
-2. npm run start
+## How to Run
+Open a terminal inside the project folder and execute:
+
+1. **npm install** to install all required dependencies
+2. **npm run start** to execute main.ts which prints the specified outputs
+
+You can also run the tests with **npm run test**
